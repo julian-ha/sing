@@ -5,9 +5,17 @@ const nodemailerApi = require('../api/nodemailer');
 
 /* GET home page. */
 router.post('/sendEmail', async (req, res, next) => {
-  await nodemailerApi.sendEmail(req.body)
+  var response = await nodemailerApi.sendEmail(req.body);
+ if (!response) {
+  res.status(500).json({
+    message: 'error'
+  });
+  return
+ }
 
-  res.sendStatus(200);
+  res.status(200).json({
+    message: 'success'
+  });
 });
 
 module.exports = router;

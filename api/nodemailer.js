@@ -27,24 +27,29 @@ const getHtml = (req) => {
 module.exports = {
   sendEmail: async (body) =>  {
 
-    // create reusable transporter object using the default SMTP transport
-    let transporter = nodemailer.createTransport({
-      host: process.env['HOST'],
-      port: 587,
-      secure: false, // true for 465, false for other ports
-      auth: {
-        user: process.env['EMAIL'], // generated ethereal user
-        pass: process.env['PASSWORD'], // generated ethereal password
-      },
-    });
-  
-    // send mail with defined transport object
-    let info = await transporter.sendMail({
-      from: '"Kontaktformular Webseite" <kontaktformular@enval.de>', // sender address
-      to: "j.haering@enval.de", // list of receivers
-      subject: "Kontaktformular Webseite", // Subject line
-      html: getHtml(body), // html body
-    });
+    try {
+          // create reusable transporter object using the default SMTP transport
+        let transporter = nodemailer.createTransport({
+          host: process.env['HOST'],
+          port: 587,
+          secure: false, // true for 465, false for other ports
+          auth: {
+            user: process.env['EMAIL'], // generated ethereal user
+            pass: process.env['PASSWORD'], // generated ethereal password
+          },
+        });
+      
+        // send mail with defined transport object
+        let info = await transporter.sendMail({
+          from: '"Kontaktformular Webseite" <kontaktformular@enval.de>', // sender address
+          to: "j.haering@enval.de", // list of receivers
+          subject: "Kontaktformular Webseite", // Subject line
+          html: getHtml(body), // html body
+        });
+        return true
+    } catch (err) {
+      return false
+    }
   
   }
 
