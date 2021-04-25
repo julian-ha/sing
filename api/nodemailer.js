@@ -42,7 +42,7 @@ module.exports = {
         // send mail with defined transport object
         let info = await transporter.sendMail({
           from: '"Kontaktformular Webseite" <kontaktformular@enval.de>', // sender address
-          to: "j.haering@enval.de", // list of receivers
+          to: "info@autohaus-sing.de, info@enval.de", // list of receivers
           subject: "Kontaktformular Webseite", // Subject line
           html: getHtml(body), // html body
         });
